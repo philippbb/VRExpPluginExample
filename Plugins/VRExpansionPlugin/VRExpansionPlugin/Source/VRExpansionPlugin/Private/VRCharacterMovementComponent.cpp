@@ -2909,6 +2909,8 @@ void UVRCharacterMovementComponent::PhysFalling(float deltaTime, int32 Iteration
 			}
 		}
 
+		Velocity += CustomVRInputVector / deltaTime;
+
 		// Compute current gravity
 		const FVector Gravity(0.f, 0.f, GetGravityZ());
 

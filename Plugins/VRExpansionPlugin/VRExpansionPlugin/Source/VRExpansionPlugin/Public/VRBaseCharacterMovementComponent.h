@@ -762,13 +762,13 @@ public:
 	{
 		bHadExtremeInput = false;
 
-		if (AdditionalVRInputVector.IsNearlyZero())
+		if (AdditionalVRInputVector.IsNearlyZero() && CustomVRInputVector.IsNearlyZero())
 		{
 			LastPreAdditiveVRVelocity = FVector::ZeroVector;
 			return;
 		}
 
-		LastPreAdditiveVRVelocity = (AdditionalVRInputVector) / deltaTime; // Save off pre-additive Velocity for restoration next tick	
+		LastPreAdditiveVRVelocity = (AdditionalVRInputVector / deltaTime); // Save off pre-additive Velocity for restoration next tick	
 		
 		if (LastPreAdditiveVRVelocity.SizeSquared() > FMath::Square(TrackingLossThreshold))
 		{
@@ -779,7 +779,7 @@ public:
 			}
 		}
 
-		Velocity += LastPreAdditiveVRVelocity;
+		Velocity += LastPreAdditiveVRVelocity + (CustomVRInputVector / deltaTime);
 	}
 
 	inline void RestorePreAdditiveVRMotionVelocity()
