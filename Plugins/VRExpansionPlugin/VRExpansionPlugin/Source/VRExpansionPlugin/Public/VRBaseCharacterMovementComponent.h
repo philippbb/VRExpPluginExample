@@ -779,7 +779,10 @@ public:
 			}
 		}
 
-		Velocity += LastPreAdditiveVRVelocity + (CustomVRInputVector / deltaTime);
+		// Post the HMD velocity checks, add in our direct movement now
+		LastPreAdditiveVRVelocity += (CustomVRInputVector / deltaTime);
+
+		Velocity += LastPreAdditiveVRVelocity;
 	}
 
 	inline void RestorePreAdditiveVRMotionVelocity()
